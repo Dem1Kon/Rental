@@ -6,7 +6,7 @@ public class Company
 {
     public Guid Id { get; init; }
     public string Name { get; init; } = String.Empty;
-    public int Balance { get; set; } = 0;
+    public int Balance { get; set; } = 10000;
 
     public List<Vehicle> Vehicles { get; init; } = [];
 
