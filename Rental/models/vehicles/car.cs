@@ -2,27 +2,38 @@ namespace Rental.models;
 
 public class Car : Vehicle
 {
-
-    public Car Economy() => new()
+    public Car Economy()
     {
-        Price = 10000,
-        Income = 1000,
-        Name = "Economy car"
-    };
+        return new Car
+        {
+            Price = 10000,
+            Income = 1000,
+            Name = "Economy car"
+        };
+    }
 
-    public Car Comfort() => new()
+    public Car Comfort()
     {
-        Price = 50000,
-        Income = 5000,
-        Name = "Comfort car"
-    };
+        return new Car
+        {
+            Price = 50000,
+            Income = 5000,
+            Name = "Comfort car"
+        };
+    }
 
-    public Car Business() => new()
+    public Car Business()
     {
-        Price = 100000,
-        Income = 10000,
-        Name = "Business car"
-    };
-    
-    public override string ToString() => $"{Name}, Price: {Price}, Income: {Income}";
+        return new Car
+        {
+            Price = 100000,
+            Income = 10000,
+            Name = "Business car"
+        };
+    }
+
+    public override string ToString()
+    {
+        return $"{Name}, Price: {Price}, Income: {Income}";
+    }
 }

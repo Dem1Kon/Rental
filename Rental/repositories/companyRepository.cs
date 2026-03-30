@@ -16,6 +16,7 @@ public class CompanyRepository(Context context) : ICompanyRepository
     {
         return await context.Companies.AsNoTracking().Include(c => c.Vehicles).FirstAsync();
     }
+
     public async Task SaveAsync()
     {
         await context.SaveChangesAsync();

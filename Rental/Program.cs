@@ -1,12 +1,8 @@
-﻿namespace Rental
+﻿namespace Rental;
+
+internal static class Program
 {
-    static class Program
+    private static void Main()
     {
-        static void Main()
-        {
-            
-        }
     }
 }
-
-

@@ -12,7 +12,8 @@ public class Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Host=localhost;Database=CarRentalGame;Username=postgres;Password=!Dem1Kon");;
+        optionsBuilder.UseNpgsql("Host=localhost;Database=CarRentalGame;Username=postgres;Password=!Dem1Kon");
+        ;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,4 +22,4 @@ public class Context : DbContext
         modelBuilder.ApplyConfiguration(new CompanyConfig());
         modelBuilder.ApplyConfiguration(new GarageConfig());
     }
-}   
+}

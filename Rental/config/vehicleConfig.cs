@@ -6,7 +6,6 @@ namespace Rental.config;
 
 public class VehicleConfig : IEntityTypeConfiguration<Vehicle>
 {
-
     public void Configure(EntityTypeBuilder<Vehicle> builder)
     {
         builder.ToTable("Vehicles");

@@ -7,24 +7,22 @@ namespace Rental.repositories;
 public interface IGarageRepository
 {
     Task<List<Garage>> GetGaragesAsync();
-    Task CreateGarageAsync(Garage garage);
-    Task EditGarageAsync(Garage garage);
-    Task RemoveGarageAsync(Garage garage);
-    Task<Garage> GetGarageByIdAsync(int garageId);
+    void CreateGarageAsync(Garage garage);
+    void EditGarageAsync(Garage garage);
+    void RemoveGarageAsync(Garage garage);
+    Task<Garage> GetGarageByIdAsync(Guid garageId);
     Task SaveGarageAsync();
 }
-
 
 public class GarageRepository(Context context) : IGarageRepository
 {
     private readonly Context _context = context;
 
-    public async Task CreateGarageAsync(Garage garage)
+    public void CreateGarageAsync(Garage garage)
     {
         try
         {
-            await _context.Garages.AddAsync(garage);
-            await _context.SaveChangesAsync();
+            _context.Garages.AddAsync(garage);
         }
         catch (Exception e)
         {
@@ -33,12 +31,11 @@ public class GarageRepository(Context context) : IGarageRepository
         }
     }
 
-    public async Task EditGarageAsync(Garage garage)
+    public void EditGarageAsync(Garage garage)
     {
         try
         {
             _context.Garages.Update(garage);
-            await _context.SaveChangesAsync();
         }
         catch (Exception e)
         {
@@ -47,12 +44,11 @@ public class GarageRepository(Context context) : IGarageRepository
         }
     }
 
-    public Task RemoveGarageAsync(Garage garage)
+    public void RemoveGarageAsync(Garage garage)
     {
         try
         {
             _context.Garages.Remove(garage);
-            return _context.SaveChangesAsync();
         }
         catch (Exception e)
         {
@@ -63,10 +59,10 @@ public class GarageRepository(Context context) : IGarageRepository
 
     public async Task<List<Garage>> GetGaragesAsync()
     {
-        return await _context.Garages.AsNoTracking().ToListAsync() ?? throw new Exception("No Garages found");
+        return await _context.Garages.AsNoTracking().ToListAsync();
     }
 
-    public async Task<Garage> GetGarageByIdAsync(int garageId)
+    public async Task<Garage> GetGarageByIdAsync(Guid garageId)
     {
         return await _context.Garages.FindAsync(garageId) ?? throw new KeyNotFoundException();
     }
