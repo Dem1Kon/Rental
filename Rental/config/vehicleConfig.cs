@@ -11,6 +11,6 @@ public class VehicleConfig : IEntityTypeConfiguration<Vehicle>
     {
         builder.ToTable("Vehicles");
         builder.HasKey(v => v.Id);
-        builder.HasOne(v => v.Company).WithMany(c => c.Vehicles);
+        builder.HasOne<Garage>().WithMany(g => g.Vehicles).HasForeignKey(v => v.GarageId);
     }
 }

@@ -40,6 +40,39 @@ namespace Rental.Migrations
                     b.ToTable("Company", (string)null);
                 });
 
+            modelBuilder.Entity("Rental.models.Garage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Costs")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Garages", (string)null);
+                });
+
             modelBuilder.Entity("Rental.models.Vehicle", b =>
                 {
                     b.Property<Guid>("Id")
@@ -47,6 +80,9 @@ namespace Rental.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("CompanyId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("GarageId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Income")
@@ -66,7 +102,20 @@ namespace Rental.Migrations
 
                     b.HasIndex("CompanyId");
 
+                    b.HasIndex("GarageId");
+
                     b.ToTable("Vehicles", (string)null);
+                });
+
+            modelBuilder.Entity("Rental.models.Garage", b =>
+                {
+                    b.HasOne("Rental.models.Company", "Company")
+                        .WithMany("Garages")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Rental.models.Vehicle", b =>
@@ -77,10 +126,23 @@ namespace Rental.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Rental.models.Garage", null)
+                        .WithMany("Vehicles")
+                        .HasForeignKey("GarageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Rental.models.Company", b =>
+                {
+                    b.Navigation("Garages");
+
+                    b.Navigation("Vehicles");
+                });
+
+            modelBuilder.Entity("Rental.models.Garage", b =>
                 {
                     b.Navigation("Vehicles");
                 });

@@ -9,6 +9,7 @@ public class Company
     public int Balance { get; set; } = 10000;
 
     public List<Vehicle> Vehicles { get; init; } = [];
+    public List<Garage> Garages { get; init; } = [];
 
     public void BuyVehicle(Vehicle vehicle)
     {
@@ -17,8 +18,7 @@ public class Company
             throw new InvalidOperationException("You dont have enough money!");
         }
         
-        vehicle.CompanyId = Id;
-        vehicle.Company = this;
+        Balance -= vehicle.Price;
         Vehicles.Add(vehicle);
     }
 
@@ -30,7 +30,6 @@ public class Company
         }
         
         Balance += vehicle.Price;
-        vehicle.Company = null;
         Vehicles.Remove(vehicle);
     }
 

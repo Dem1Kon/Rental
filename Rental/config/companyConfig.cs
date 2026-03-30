@@ -11,5 +11,6 @@ public class CompanyConfig : IEntityTypeConfiguration<Company>
         builder.ToTable("Company");
         builder.HasKey(c => c.Id);
         builder.HasMany(c => c.Vehicles).WithOne(v => v.Company).HasForeignKey(v => v.CompanyId).IsRequired();
+        builder.HasMany(c => c.Garages).WithOne(g => g.Company).HasForeignKey(g => g.CompanyId).IsRequired();
     }
 }
