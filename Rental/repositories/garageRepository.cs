@@ -7,9 +7,9 @@ namespace Rental.repositories;
 public interface IGarageRepository
 {
     Task<List<Garage>> GetGaragesAsync();
-    void CreateGarageAsync(Garage garage);
-    void EditGarageAsync(Garage garage);
-    void RemoveGarageAsync(Garage garage);
+    void Add(Garage garage);
+    void Update(Garage garage);
+    void Delete(Garage garage);
     Task<Garage> GetGarageByIdAsync(Guid garageId);
     Task SaveGarageAsync();
 }
@@ -18,7 +18,7 @@ public class GarageRepository(Context context) : IGarageRepository
 {
     private readonly Context _context = context;
 
-    public void CreateGarageAsync(Garage garage)
+    public void Add(Garage garage)
     {
         try
         {
@@ -31,7 +31,7 @@ public class GarageRepository(Context context) : IGarageRepository
         }
     }
 
-    public void EditGarageAsync(Garage garage)
+    public void Update(Garage garage)
     {
         try
         {
@@ -44,7 +44,7 @@ public class GarageRepository(Context context) : IGarageRepository
         }
     }
 
-    public void RemoveGarageAsync(Garage garage)
+    public void Delete(Garage garage)
     {
         try
         {
@@ -62,9 +62,9 @@ public class GarageRepository(Context context) : IGarageRepository
         return await _context.Garages.AsNoTracking().ToListAsync();
     }
 
-    public async Task<Garage> GetGarageByIdAsync(Guid garageId)
+    public async Task<Garage?> GetGarageByIdAsync(Guid garageId)
     {
-        return await _context.Garages.FindAsync(garageId) ?? throw new KeyNotFoundException();
+        return await _context.Garages.FindAsync(garageId);
     }
 
     public async Task SaveGarageAsync()
