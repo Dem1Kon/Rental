@@ -7,9 +7,14 @@ namespace Rental.services;
 public interface ICompanyService
 {
     Task<CompanyDto?> GetCompanyAsync();
-    Task<bool> BuyVehicleAsync(Vehicle vehicle);
-    Task<bool> SellVehicleAsync(Vehicle vehicle);
+    Task<bool> BuyVehicleAsync(BuyVehicleRequest vehicle);
+    Task<bool> SellVehicleAsync(BuyVehicleRequest vehicle);
     Task<decimal> GetTotalIncomeAsync();
+}
+
+public abstract class BuyVehicleRequest
+{
+    public Guid Id { get; set; }
 }
 
 public class CompanyDto
@@ -28,6 +33,7 @@ public class CompanyService(
 {
     private readonly ICompanyRepository _repository = repository;
     private readonly ILogger<CompanyService> _logger = logger;
+    private readonly IVehicleRepository _vehicleRepository = vehicleRepository;
 
     public async Task<CompanyDto?> GetCompanyAsync()
     {
@@ -47,12 +53,19 @@ public class CompanyService(
         };
     }
 
-    public async Task<bool> BuyVehicleAsync(Vehicle vehicle)
+    public async Task<bool> BuyVehicleAsync(BuyVehicleRequest request)
     {
         var company = await _repository.GetCompanyAsync();
         if (company == null)
         {
             _logger.LogWarning("Company not found");
+            return false;
+        }
+        
+        var vehicle = _vehicleRepository.GetByIdAsync(request.Id).Result;
+        if (vehicle == null)
+        {
+            _logger.LogWarning("Vehicle not found");
             return false;
         }
 
@@ -69,7 +82,7 @@ public class CompanyService(
         }
     }
 
-    public async Task<bool> SellVehicleAsync(Vehicle vehicle)
+    public async Task<bool> SellVehicleAsync(BuyVehicleRequest request)
     {
         var company = await _repository.GetCompanyAsync();
         if (company == null)
@@ -78,6 +91,13 @@ public class CompanyService(
             return false;
         }
 
+        var vehicle = _vehicleRepository.GetByIdAsync(request.Id).Result;
+        if (vehicle == null)
+        {
+            _logger.LogWarning("Vehicle not found");
+            return false;
+        }
+        
         try
         {
             company.SellVehicle(vehicle);
