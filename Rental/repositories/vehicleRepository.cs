@@ -38,7 +38,7 @@ public class VehicleRepository(Context context) : IVehicleRepository
 
     public async Task<List<Vehicle>> GetAllAsync()
     {
-        return await context.Vehicles.ToListAsync();
+        return await context.Vehicles.AsNoTracking().ToListAsync();
     }
     
     public async Task SaveChangesAsync()
