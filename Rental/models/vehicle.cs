@@ -13,5 +13,4 @@ public class Vehicle
 
     public int Price { get; set; } = 0;
     public int Income { get; init; } = 0;
-    protected string TypeName { get; set; } = string.Empty;
 }
