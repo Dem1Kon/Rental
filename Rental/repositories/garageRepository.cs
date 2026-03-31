@@ -16,13 +16,11 @@ public interface IGarageRepository
 
 public class GarageRepository(Context context) : IGarageRepository
 {
-    private readonly Context _context = context;
-
     public void Add(Garage garage)
     {
         try
         {
-            _context.Garages.AddAsync(garage);
+            context.Garages.AddAsync(garage);
         }
         catch (Exception e)
         {
@@ -35,7 +33,7 @@ public class GarageRepository(Context context) : IGarageRepository
     {
         try
         {
-            _context.Garages.Update(garage);
+            context.Garages.Update(garage);
         }
         catch (Exception e)
         {
@@ -48,7 +46,7 @@ public class GarageRepository(Context context) : IGarageRepository
     {
         try
         {
-            _context.Garages.Remove(garage);
+            context.Garages.Remove(garage);
         }
         catch (Exception e)
         {
@@ -59,16 +57,16 @@ public class GarageRepository(Context context) : IGarageRepository
 
     public async Task<List<Garage>> GetGaragesAsync()
     {
-        return await _context.Garages.AsNoTracking().ToListAsync();
+        return await context.Garages.AsNoTracking().ToListAsync();
     }
 
     public async Task<Garage?> GetGarageByIdAsync(Guid garageId)
     {
-        return await _context.Garages.FindAsync(garageId);
+        return await context.Garages.FindAsync(garageId);
     }
 
     public async Task SaveGarageAsync()
     {
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
     }
 }
