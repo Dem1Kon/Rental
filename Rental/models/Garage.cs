@@ -12,7 +12,7 @@ public class Garage
 
     public DateTime PurchaseDate { get; init; } = DateTime.UtcNow;
 
-    public int Capacity { get; set; } = 0;
-    public int Price { get; set; } = 0;
-    public int Costs { get; set; } = 0;
+    public int Capacity { get; set; } = 10;
+    public int Price { get; set; } = 5000;
+    public int Costs { get; set; } = 500;
 }
