@@ -3,14 +3,17 @@ namespace Rental.models;
 public class Vehicle
 {
     public Guid Id { get; init; } = Guid.NewGuid();
-    public Guid CompanyId { get; set; }
-    public Guid GarageId { get; set; }
-    public Company? Company { get; set; }
+    
+    public Guid CompanyId { get; init; }
+    public Company Company { get; init; }
+    
+    public Guid GarageId { get; init; }
+    public Garage Garage { get; init; }
+    
+    public required int TypeId { get; init; }
+    public VehicleType Type { get; init; }
 
-
-    public string Name { get; init; } = string.Empty;
+    public int Price { get; init; }
+    public int Income { get; init; }
     public DateTime PurchaseDate { get; init; } = DateTime.UtcNow;
-
-    public int Price { get; set; } = 0;
-    public int Income { get; init; } = 0;
 }
