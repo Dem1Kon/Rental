@@ -11,7 +11,7 @@ public interface IVehicleRepository
     void Remove(Vehicle vehicle);
     Task<Vehicle?> GetByIdAsync(Guid id);
     Task<List<Vehicle>> GetAllAsync();
-    Task SaveChangesAsync();
+    Task SaveAsync();
 }
 
 public class VehicleRepository(Context context) : IVehicleRepository
@@ -41,7 +41,7 @@ public class VehicleRepository(Context context) : IVehicleRepository
         return await context.Vehicles.AsNoTracking().ToListAsync();
     }
     
-    public async Task SaveChangesAsync()
+    public async Task SaveAsync()
     {
         await context.SaveChangesAsync();
     }

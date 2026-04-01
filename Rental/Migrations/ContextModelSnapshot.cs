@@ -28,8 +28,8 @@ namespace Rental.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Balance")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -52,25 +52,77 @@ namespace Rental.Migrations
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Costs")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("Costs")
+                        .HasColumnType("numeric");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
 
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TypeId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
 
+                    b.HasIndex("TypeId");
+
                     b.ToTable("Garages", (string)null);
+                });
+
+            modelBuilder.Entity("Rental.models.GarageType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Costs")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GarageTypes", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Capacity = 5,
+                            Costs = 1000m,
+                            Name = "Small Garage",
+                            Price = 10000m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Capacity = 15,
+                            Costs = 4000m,
+                            Name = "Medium Garage",
+                            Price = 20000m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Capacity = 30,
+                            Costs = 10000m,
+                            Name = "Large Garage",
+                            Price = 50000m
+                        });
                 });
 
             modelBuilder.Entity("Rental.models.Vehicle", b =>
@@ -85,18 +137,17 @@ namespace Rental.Migrations
                     b.Property<Guid>("GarageId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Income")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("Income")
+                        .HasColumnType("numeric");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
 
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TypeId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -104,7 +155,69 @@ namespace Rental.Migrations
 
                     b.HasIndex("GarageId");
 
+                    b.HasIndex("TypeId");
+
                     b.ToTable("Vehicles", (string)null);
+                });
+
+            modelBuilder.Entity("Rental.models.VehicleType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Income")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Level")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VehicleTypes", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Category = "Car",
+                            Income = 500m,
+                            Level = "Economy",
+                            Name = "Economy Car",
+                            Price = 5000m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Category = "Car",
+                            Income = 1000m,
+                            Level = "Comfort",
+                            Name = "Comfort Car",
+                            Price = 10000m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Category = "Car",
+                            Income = 3000m,
+                            Level = "Business",
+                            Name = "Business Car",
+                            Price = 20000m
+                        });
                 });
 
             modelBuilder.Entity("Rental.models.Garage", b =>
@@ -115,7 +228,15 @@ namespace Rental.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Rental.models.GarageType", "GarageType")
+                        .WithMany()
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Company");
+
+                    b.Navigation("GarageType");
                 });
 
             modelBuilder.Entity("Rental.models.Vehicle", b =>
@@ -126,13 +247,23 @@ namespace Rental.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Rental.models.Garage", null)
+                    b.HasOne("Rental.models.Garage", "Garage")
                         .WithMany("Vehicles")
                         .HasForeignKey("GarageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Rental.models.VehicleType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Company");
+
+                    b.Navigation("Garage");
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("Rental.models.Company", b =>

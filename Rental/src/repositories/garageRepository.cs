@@ -10,49 +10,25 @@ public interface IGarageRepository
     void Add(Garage garage);
     void Update(Garage garage);
     void Delete(Garage garage);
-    Task<Garage> GetGarageByIdAsync(Guid garageId);
-    Task SaveGarageAsync();
+    Task<Garage?> GetGarageByIdAsync(Guid garageId);
+    Task SaveAsync();
 }
 
 public class GarageRepository(Context context) : IGarageRepository
 {
     public void Add(Garage garage)
     {
-        try
-        {
-            context.Garages.AddAsync(garage);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        context.Garages.Add(garage);
     }
 
     public void Update(Garage garage)
     {
-        try
-        {
-            context.Garages.Update(garage);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        context.Garages.Update(garage);
     }
 
     public void Delete(Garage garage)
     {
-        try
-        {
-            context.Garages.Remove(garage);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        context.Garages.Remove(garage);
     }
 
     public async Task<List<Garage>> GetGaragesAsync()
@@ -65,7 +41,7 @@ public class GarageRepository(Context context) : IGarageRepository
         return await context.Garages.FindAsync(garageId);
     }
 
-    public async Task SaveGarageAsync()
+    public async Task SaveAsync()
     {
         await context.SaveChangesAsync();
     }
