@@ -12,8 +12,7 @@ public class Vehicle
     
     public required int TypeId { get; init; }
     public VehicleType Type { get; init; }
-
-    public string Name { get; init; }
+    
     public decimal Price { get; init; }
     public decimal Income { get; init; }
     public DateTime PurchaseDate { get; init; } = DateTime.UtcNow;
