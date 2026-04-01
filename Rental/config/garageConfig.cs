@@ -10,7 +10,6 @@ public class GarageConfig : IEntityTypeConfiguration<Garage>
     {
         builder.ToTable("Garages");
         builder.HasKey(v => v.Id);
-        builder.HasMany(g => g.Vehicles).WithOne().HasForeignKey(v => v.GarageId);
-        builder.Property(g => g.Name).HasMaxLength(50).IsRequired();
+        builder.HasOne<GarageType>(g => g.GarageType).WithMany().HasForeignKey(g => g.TypeId);
     }
 }

@@ -10,6 +10,7 @@ public class Context : DbContext
     public DbSet<Vehicle> Vehicles { get; set; } = null!;
     public DbSet<Garage> Garages { get; set; } = null!;
     public DbSet<VehicleType> VehicleTypes { get; set; } = null!;
+    public DbSet<GarageType> GarageTypes { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -21,6 +22,7 @@ public class Context : DbContext
         modelBuilder.ApplyConfiguration(new VehicleConfig());
         modelBuilder.ApplyConfiguration(new CompanyConfig());
         modelBuilder.ApplyConfiguration(new GarageConfig());
-        modelBuilder.ApplyConfiguration(new vehicleTypesConfig());
+        modelBuilder.ApplyConfiguration(new VehicleTypesConfig());
+        modelBuilder.ApplyConfiguration(new GarageTypesConfig());
     }
 }

@@ -4,10 +4,12 @@ using Rental.models;
 
 namespace Rental.config;
 
-public class vehicleTypesConfig : IEntityTypeConfiguration<VehicleType>
+public class VehicleTypesConfig : IEntityTypeConfiguration<VehicleType>
 {
     public void Configure(EntityTypeBuilder<VehicleType> builder)
     {
+        builder.ToTable("VehicleTypes");
+        builder.HasKey(x => x.Id);
         builder.HasData(
             new VehicleType { Name = "Economy Car", Category = "Car", Level = "Economy", Price = 5000, Income = 500 },
             new VehicleType { Name = "Comfort Car", Category = "Car", Level = "Comfort", Price = 10000, Income = 1000 },
