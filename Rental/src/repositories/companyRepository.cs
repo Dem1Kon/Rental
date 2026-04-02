@@ -16,7 +16,10 @@ public class CompanyRepository(Context context) : ICompanyRepository
     
     public async Task<Company?> GetCompanyAsync()
     {
-        return await _context.Companies.Include(c => c.Vehicles).Include(c => c.Garages).FirstOrDefaultAsync();
+        return await _context.Companies
+            .Include(c => c.Vehicles)
+            .Include(c => c.Storages)
+            .FirstOrDefaultAsync();
     }
 
     public async Task SaveAsync()

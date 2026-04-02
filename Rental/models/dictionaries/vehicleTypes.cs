@@ -8,4 +8,5 @@ public class VehicleType
     public string Level { get; init; } = string.Empty;
     public decimal MonthlyIncome { get; init; }
     public decimal Price { get; init; }
+    public string RequiredStorageType { get; init; } = string.Empty;
 }

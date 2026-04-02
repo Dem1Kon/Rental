@@ -7,8 +7,8 @@ public class Vehicle
     public Guid CompanyId { get; set; }
     public Company Company { get; set; }
     
-    public Guid GarageId { get; set; }
-    public Garage Garage { get; set; }
+    public Guid StorageId { get; set; }
+    public Storage Storage { get; set; }
     
     public required int TypeId { get; init; }
     public VehicleType Type { get; init; }

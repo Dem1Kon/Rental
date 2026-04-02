@@ -8,9 +8,9 @@ public class Context : DbContext
 {
     public DbSet<Company> Companies { get; set; } = null!;
     public DbSet<Vehicle> Vehicles { get; set; } = null!;
-    public DbSet<Garage> Garages { get; set; } = null!;
+    public DbSet<Storage> Storages { get; set; } = null!;
     public DbSet<VehicleType> VehicleTypes { get; set; } = null!;
-    public DbSet<GarageType> GarageTypes { get; set; } = null!;
+    public DbSet<StorageType> StorageTypes { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -21,8 +21,8 @@ public class Context : DbContext
     {
         modelBuilder.ApplyConfiguration(new VehicleConfig());
         modelBuilder.ApplyConfiguration(new CompanyConfig());
-        modelBuilder.ApplyConfiguration(new GarageConfig());
+        modelBuilder.ApplyConfiguration(new StorageConfig());
         modelBuilder.ApplyConfiguration(new VehicleTypesConfig());
-        modelBuilder.ApplyConfiguration(new GarageTypesConfig());
+        modelBuilder.ApplyConfiguration(new StorageTypesConfig());
     }
 }

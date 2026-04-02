@@ -7,11 +7,10 @@ public class Company
     public decimal Balance { get; set; } = 10000;
 
     public List<Vehicle> Vehicles { get; init; } = [];
-    public List<Garage> Garages { get; init; } = [];
+    public List<Storage> Storages { get; init; } = [];
 
     public void BuyVehicle(Vehicle vehicle)
     {
-        if(vehicle.Id != Guid.Empty) throw new InvalidOperationException("Vehicle already exists in company!");
         if (Balance < vehicle.Price) throw new InvalidOperationException("You dont have enough money!");
 
         vehicle.CompanyId = Id;
@@ -28,23 +27,23 @@ public class Company
         Vehicles.Remove(vehicle);
     }
 
-    public void BuyGarage(Garage garage)
+    public void BuyStorage(Storage storage)
     {
-        if(garage.CompanyId != Guid.Empty) throw new InvalidOperationException("Garage already exists in company!");
-        if (Balance < garage.Price) throw new InvalidOperationException("You dont have enough money!");
+        if (Balance < storage.Price) throw new InvalidOperationException("You dont have enough money!");
         
-        garage.CompanyId = Id;
-        garage.Company = this;
+        storage.CompanyId = Id;
+        storage.Company = this;
         
-        Balance -= garage.Price;
-        Garages.Add(garage);
+        Balance -= storage.Price;
+        Storages.Add(storage);
     }
 
-    public void SellGarage(Garage garage)
+    public void SellStorage(Storage storage)
     {
-        if (!Garages.Contains(garage)) throw new InvalidOperationException("You don't have this garage!");
-        Garages.Remove(garage); 
-        Balance += garage.Price;
+        if (!Storages.Contains(storage)) throw new InvalidOperationException("You don't have this storage!");
+        if (storage.Vehicles.Any()) throw new InvalidOperationException("Cannot sell non-empty storage");
+        Storages.Remove(storage); 
+        Balance += storage.Price;
     }
 
     public decimal GetIncome()
@@ -54,5 +53,5 @@ public class Company
         foreach (var vehicle in Vehicles) income += vehicle.MonthlyIncome;
 
         return income;
-    }
+    }   
 }
