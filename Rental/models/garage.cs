@@ -10,7 +10,7 @@ public class Garage
 
     public int Capacity { get; init; }
     public decimal Price { get; init; }
-    public decimal Costs { get; init; }
+    public decimal MonthlyCosts { get; init; }
     
     public List<Vehicle> Vehicles { get; init; } = [];
     public GarageType GarageType { get; init; }

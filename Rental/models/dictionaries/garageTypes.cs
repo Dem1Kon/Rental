@@ -6,5 +6,5 @@ public class GarageType
     public string Name { get; init; } = string.Empty;
     public int Capacity { get; init; }
     public decimal Price { get; init; }
-    public decimal Costs { get; init; }
+    public decimal MonthlyCosts { get; init; }
 }

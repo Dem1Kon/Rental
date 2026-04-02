@@ -11,9 +11,9 @@ public class VehicleTypesConfig : IEntityTypeConfiguration<VehicleType>
         builder.ToTable("VehicleTypes");
         builder.HasKey(x => x.Id);
         builder.HasData(
-            new VehicleType { Id = 1, Name = "Economy Car", Category = "Car", Level = "Economy", Price = 5000, Income = 500 },
-            new VehicleType { Id = 2, Name = "Comfort Car", Category = "Car", Level = "Comfort", Price = 10000, Income = 1000 },
-            new VehicleType { Id = 3, Name = "Business Car", Category = "Car", Level = "Business", Price = 20000, Income = 3000 }
+            new VehicleType { Id = 1, Name = "Economy Car", Category = "Car", Level = "Economy", Price = 5000, MonthlyIncome = 500 },
+            new VehicleType { Id = 2, Name = "Comfort Car", Category = "Car", Level = "Comfort", Price = 10000, MonthlyIncome = 1000 },
+            new VehicleType { Id = 3, Name = "Business Car", Category = "Car", Level = "Business", Price = 20000, MonthlyIncome = 3000 }
             );
     }
 }

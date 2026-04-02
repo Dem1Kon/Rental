@@ -6,6 +6,6 @@ public class VehicleType
     public string Name { get; init; } = string.Empty;
     public string Category { get; init; } = string.Empty;
     public string Level { get; init; } = string.Empty;
-    public decimal Income { get; init; }
+    public decimal MonthlyIncome { get; init; }
     public decimal Price { get; init; }
 }

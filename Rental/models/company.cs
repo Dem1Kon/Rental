@@ -51,7 +51,7 @@ public class Company
     {
         decimal income = 0;
 
-        foreach (var vehicle in Vehicles) income += vehicle.Income;
+        foreach (var vehicle in Vehicles) income += vehicle.MonthlyIncome;
 
         return income;
     }

@@ -14,6 +14,6 @@ public class Vehicle
     public VehicleType Type { get; init; }
     
     public decimal Price { get; init; }
-    public decimal Income { get; init; }
+    public decimal MonthlyIncome { get; init; }
     public DateTime PurchaseDate { get; init; } = DateTime.UtcNow;
 }
