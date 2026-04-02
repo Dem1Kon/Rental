@@ -12,13 +12,15 @@ public interface ICompanyRepository
 
 public class CompanyRepository(Context context) : ICompanyRepository
 {
+    private readonly Context _context = context;
+    
     public async Task<Company?> GetCompanyAsync()
     {
-        return await context.Companies.Include(c => c.Vehicles).Include(c => c.Garages).FirstOrDefaultAsync();
+        return await _context.Companies.Include(c => c.Vehicles).Include(c => c.Garages).FirstOrDefaultAsync();
     }
 
     public async Task SaveAsync()
     {
-        await context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
     }
 }

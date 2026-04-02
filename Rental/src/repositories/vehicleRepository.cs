@@ -16,33 +16,35 @@ public interface IVehicleRepository
 
 public class VehicleRepository(Context context) : IVehicleRepository
 {
+    private readonly Context _context = context;
+    
     public void Add(Vehicle vehicle)
     {
-        context.Vehicles.Add(vehicle);
+        _context.Vehicles.Add(vehicle);
     }
 
     public void Update(Vehicle vehicle)
     {
-        context.Vehicles.Update(vehicle);
+        _context.Vehicles.Update(vehicle);
     }
 
     public void Remove(Vehicle vehicle)
     {
-        context.Vehicles.Remove(vehicle);
+        _context.Vehicles.Remove(vehicle);
     }
 
     public async Task<Vehicle?> GetByIdAsync(Guid id)
     {
-        return await context.Vehicles.FindAsync(id);
+        return await _context.Vehicles.FindAsync(id);
     }
 
     public async Task<List<Vehicle>> GetAllAsync()
     {
-        return await context.Vehicles.AsNoTracking().ToListAsync();
+        return await _context.Vehicles.AsNoTracking().ToListAsync();
     }
     
     public async Task SaveAsync()
     {
-        await context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
     }
 }
