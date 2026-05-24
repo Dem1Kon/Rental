@@ -9,8 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.5"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="10.0.5"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="10.0.5" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.5">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -19,7 +19,25 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Rental\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EditorConfigFiles Include="..\..\..\..\..\Program Files\dotnet\sdk\10.0.201\Sdks\Microsoft.NET.Sdk\analyzers\build\config\analysislevel_10_default.globalconfig">
+        <Link>Rental\config\analysislevel_10_default.globalconfig</Link>
+      </EditorConfigFiles>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="RentalApi\RentalApi.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="Rental.csproj" />
     </ItemGroup>
 
 </Project>
