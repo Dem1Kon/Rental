@@ -1,2 +1,8 @@
 /bin
 /obj
+/.idea
+/.vs 
+
+/Rental/obj
+/Rental/bin
+/Rental/
