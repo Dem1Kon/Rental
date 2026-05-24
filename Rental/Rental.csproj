@@ -31,13 +31,5 @@
         <Link>Rental\config\analysislevel_10_default.globalconfig</Link>
       </EditorConfigFiles>
     </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="RentalApi\RentalApi.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="Rental.csproj" />
-    </ItemGroup>
-
+    
 </Project>
