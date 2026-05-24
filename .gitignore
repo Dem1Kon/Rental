@@ -5,4 +5,6 @@
 
 /Rental/obj
 /Rental/bin
-/Rental/
+
+/Rental.WebApi/bin
+/Rental.WebApi/obj
